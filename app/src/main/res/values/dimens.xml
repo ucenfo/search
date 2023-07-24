@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="height_toolbar">64dp</dimen>
+    <dimen name="margin_horizontal_internal_card">10dp</dimen>
+    <dimen name="margin_vertical_internal_card">8dp</dimen>
+
+
+</resources>

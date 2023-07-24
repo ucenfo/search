@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <View
+        android:id="@+id/medicament_container"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_card_odd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/medicament_image"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/medicament_container"
+        app:layout_constraintStart_toStartOf="@+id/medicament_container"
+        app:layout_constraintTop_toTopOf="@+id/medicament_container" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/medicament_name"
+        android:fontFamily="@font/opensans_bold"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Acetaminofén"
+        app:layout_constraintEnd_toEndOf="@+id/medicament_container"
+        app:layout_constraintStart_toEndOf="@+id/medicament_image"
+        app:layout_constraintTop_toTopOf="@+id/medicament_container" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_brand"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_horizontal_internal_card"
+        android:text="Marca:"
+        app:layout_constraintStart_toEndOf="@+id/medicament_image"
+        app:layout_constraintTop_toBottomOf="@+id/medicament_name" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/brand"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_vertical_internal_card"
+        android:layout_marginTop="@dimen/margin_horizontal_internal_card"
+        android:text="Novartis"
+        app:layout_constraintStart_toEndOf="@+id/tv_brand"
+        app:layout_constraintTop_toBottomOf="@+id/medicament_name" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/route_title"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vía de administración:"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_horizontal_internal_card"
+        app:layout_constraintStart_toEndOf="@+id/medicament_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_brand" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/route"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oral"
+        android:layout_marginStart="@dimen/margin_vertical_internal_card"
+        app:layout_constraintBottom_toBottomOf="@+id/route_title"
+        app:layout_constraintStart_toEndOf="@+id/route_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dose_title"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/margin_horizontal_internal_card"
+        android:text="Dosis:"
+        app:layout_constraintStart_toEndOf="@+id/medicament_image"
+        app:layout_constraintTop_toBottomOf="@+id/route_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dose"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50 mg"
+        android:layout_marginStart="@dimen/margin_vertical_internal_card"
+        app:layout_constraintStart_toEndOf="@+id/dose_title"
+        app:layout_constraintTop_toTopOf="@+id/dose_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

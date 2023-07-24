@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#1A34CA</color>
+    <color name="primary">#120B86</color>
+
+    <color name="md_theme_light_secondaryContainer">#a4f1b0</color>
+    <color name="md_theme_light_tertiaryContainer">#C6E7FF</color>
+    <color name="md_theme_light_onTertiaryContainer">#001E2D</color>
+</resources>
