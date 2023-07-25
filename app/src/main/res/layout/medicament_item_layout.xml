@@ -69,7 +69,7 @@
         android:textSize="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vía de administración:"
+        android:text="Vía:"
         android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/margin_horizontal_internal_card"
         app:layout_constraintStart_toEndOf="@+id/medicament_image"

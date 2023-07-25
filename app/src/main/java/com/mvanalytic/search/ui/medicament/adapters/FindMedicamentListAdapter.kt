@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.textview.MaterialTextView
 import com.mvanalytic.search.R
 import com.mvanalytic.search.domian.models.MedModel
+import java.util.Locale
 
 class FindMedicamentListAdapter(
     private val displayDetailOfMedication: (medModel: MedModel) -> Unit
@@ -26,6 +27,7 @@ class FindMedicamentListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FindMedicamentViewHolder  {
+        println("OncreateViewHolder")
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.medicament_item_layout, parent, false)
         return FindMedicamentViewHolder(view)
@@ -41,25 +43,31 @@ class FindMedicamentListAdapter(
 }
 
 class FindMedicamentViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
     fun bind(position: Int,
              medModel: MedModel,
              displayDetailOfMedication: (medModel: MedModel) -> Unit
     ){
-        println("Numero de elementos: ${medModel.id}")
+        println("Elemento: ${medModel.id}")
+        val language = Locale.getDefault().language
         with(itemView) {
             val containerMedicament = findViewById<View>(R.id.medicament_container)
             containerMedicament.setOnClickListener {
                 displayDetailOfMedication.invoke(medModel)
                 return@setOnClickListener
             }
-            findViewById<MaterialTextView>(R.id.medicament_name).text = medModel.nameSpa
+            findViewById<MaterialTextView>(R.id.medicament_name).text = if (language == "en") {
+                medModel.nameEng
+            } else {
+                medModel.nameSpa
+            }
             findViewById<MaterialTextView>(R.id.brand).text = medModel.brand
             findViewById<MaterialTextView>(R.id.dose).text = medModel.dose
-            findViewById<MaterialTextView>(R.id.route).text = medModel.routeSpa
+            findViewById<MaterialTextView>(R.id.route).text = if (language == "en") {
+                medModel.routeEng
+            } else {
+                medModel.routeSpa
+            }
             val image = findViewById<ImageView>(R.id.medicament_image)
-            println("ruta: ${medModel.photoSmall}")
-//            Picasso.get().load(medModel.photoSmall).into(ic_image)
             Glide
                 .with(this)
                 .load(medModel.photoSmall)

@@ -76,7 +76,7 @@ object LocalMedsDataSource {
             descriptionSpa = "También conocido como diclofenaco, se usa para aliviar el dolor y la hinchazón (inflamación) leves a moderados de diversas afecciones, como dolor de cabeza, dolor dental, calambres menstruales y dolores musculares. El diclofenaco es conocido como un fármaco antiinflamatorio no esteroideo (AINE).",
             routeEng = "Oral",
             routeSpa = "Oral",
-            photoSmall = "https://res.cloudinary.com/prixz/image/upload/d_default_product_txh9zg.svg,w_500,q_auto/items/7501033959936.jpg",
+            photoSmall = "https://picsum.photos/200",
             photoMedium = null,
             photoLarge = null,
             indications = LocalIndication(
@@ -97,15 +97,44 @@ object LocalMedsDataSource {
         ),
         LocalMed(
             id = 4,
-            nameEng = "Cataflam compuesto",
-            nameSpa = "Abbot",
-            brand = "Bayer",
+            nameEng = "Compound cataflam",
+            nameSpa = "Cataflam compuesto",
+            brand = "Novartis",
             dose = "135 mg",
             descriptionEng = "Also known as Diclofenac, it is used to relieve mild to moderate pain and swelling (inflammation) from various conditions such as headache, dental pain, menstrual cramps, and muscle aches. Diclofenac is known as a nonsteroidal anti-inflammatory drug (NSAID).",
             descriptionSpa = "También conocido como diclofenaco, se usa para aliviar el dolor y la hinchazón (inflamación) leves a moderados de diversas afecciones, como dolor de cabeza, dolor dental, calambres menstruales y dolores musculares. El diclofenaco es conocido como un fármaco antiinflamatorio no esteroideo (AINE).",
             routeEng = "Oral",
             routeSpa = "Oral",
             photoSmall = "https://img.freepik.com/fotos-premium/jeringas-equipos-medicos-farmacia-productos-medicos-produccion-dispositivos-medicos_291852-80.jpg?w=2000",
+            photoMedium = null,
+            photoLarge = null,
+            indications = LocalIndication(
+                id = 3,
+                descriptionEng = "Do not lie down for at least 10 minutes after you have taken this drug",
+                descriptionSpa = "No se acueste por al menos 10 minutos después de que haya consumido este medicamento."
+            ),
+            interactions = LocalInteraction(
+                id = 3,
+                descriptionSpa = "Antes de utilizar este producto, consulte a su doctor si ha sido vacunado previamente (varicela, gripe)",
+                descriptionEng = "Some products that may interact with this drug include: mifepristone, acetazolamide, blood thinners (such as warfarin, heparin) and corticosteroids (such as prednisone)."
+            ),
+            effects = LocalEffects(
+                id = 3,
+                descriptionEng = "If you are taking this medication for self-treatment of headache, get medical help right away if you also have trouble speaking, weakness on one side of the body, or sudden vision changes.",
+                descriptionSpa = "Si se automedica para tratar dolores de cabeza, consiga ayuda médica inmediata si tiene dificultades para hablar, debilidad en un lado del cuerpo o pérdida de visión."
+            )
+        ),
+        LocalMed(
+            id = 5,
+            nameEng = "Vitamin E",
+            nameSpa = "Vitamina E",
+            brand = "Raven",
+            dose = "500 mg",
+            descriptionEng = "Also known as Diclofenac, it is used to relieve mild to moderate pain and swelling (inflammation) from various conditions such as headache, dental pain, menstrual cramps, and muscle aches. Diclofenac is known as a nonsteroidal anti-inflammatory drug (NSAID).",
+            descriptionSpa = "También conocido como diclofenaco, se usa para aliviar el dolor y la hinchazón (inflamación) leves a moderados de diversas afecciones, como dolor de cabeza, dolor dental, calambres menstruales y dolores musculares. El diclofenaco es conocido como un fármaco antiinflamatorio no esteroideo (AINE).",
+            routeEng = "Oral",
+            routeSpa = "Oral",
+            photoSmall = "https://farmacias.fischelenlinea.com/Images/Upload/1/2/e42659b96158365-VITAMINA-E-RAV-CAP-500MG-X100b.jpg",
             photoMedium = null,
             photoLarge = null,
             indications = LocalIndication(
