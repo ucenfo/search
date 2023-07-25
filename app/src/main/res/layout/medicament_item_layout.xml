@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,7 +30,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/medicament_name"
         android:fontFamily="@font/opensans_bold"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -41,7 +42,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_brand"
         android:fontFamily="@font/opensans_regular"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,7 +54,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/brand"
         android:fontFamily="@font/opensans_semibold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_vertical_internal_card"
@@ -66,7 +67,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/route_title"
         android:fontFamily="@font/opensans_regular"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vía:"
@@ -78,7 +79,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/route"
         android:fontFamily="@font/opensans_semibold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Oral"
@@ -89,7 +90,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dose_title"
         android:fontFamily="@font/opensans_regular"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,7 +102,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dose"
         android:fontFamily="@font/opensans_semibold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="50 mg"

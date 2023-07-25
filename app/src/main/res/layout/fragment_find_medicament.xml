@@ -7,19 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.medicament.views.FindMedicamentFragment">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-    </androidx.core.widget.NestedScrollView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_toolbar"
@@ -77,18 +69,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/bnt_help"-->
-<!--        android:layout_width="60dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:clickable="true"-->
-<!--        android:contentDescription="uola"-->
-<!--        android:src="@android:drawable/ic_menu_help"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_anchor="@id/cl_container"-->
-<!--        app:layout_anchorGravity="bottom|right|end" />-->
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

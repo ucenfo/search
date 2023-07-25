@@ -22,12 +22,10 @@ class FindMedicamentListAdapter(
     fun setData(dataSource: List<MedModel>) {
         data.clear()
         data.addAll(dataSource)
-    println("tamanio ${data.size}")
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FindMedicamentViewHolder  {
-        println("OncreateViewHolder")
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.medicament_item_layout, parent, false)
         return FindMedicamentViewHolder(view)
@@ -47,7 +45,6 @@ class FindMedicamentViewHolder(view: View): RecyclerView.ViewHolder(view) {
              medModel: MedModel,
              displayDetailOfMedication: (medModel: MedModel) -> Unit
     ){
-        println("Elemento: ${medModel.id}")
         val language = Locale.getDefault().language
         with(itemView) {
             val containerMedicament = findViewById<View>(R.id.medicament_container)

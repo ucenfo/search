@@ -28,6 +28,7 @@ class FindMedicamentFragment : Fragment() {
     private lateinit var medicamentsList: RecyclerView
     private lateinit var noMedicamentsGroup: Group
     private lateinit var lenguage: String
+    private val leakedData = mutableListOf<MedModel>()
 
     private lateinit var mainViewModel: MainViewModel
 
@@ -49,14 +50,10 @@ class FindMedicamentFragment : Fragment() {
         )
     }
 
-    private fun displayDatailMedicament(medModel: MedModel) {
-        println("Medicina: $medModel")
-//        TODO: pasar la info a otro fragmento
-    }
-
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -74,15 +71,14 @@ class FindMedicamentFragment : Fragment() {
     }
 
     private fun initViews(view: View){
-        println("InitVista")
         with(view){
-            searchView = findViewById(R.id.search_view)
-            noMedicamentsGroup = findViewById(R.id.no_medicaments_group)
             medicamentsList = findViewById(R.id.medicaments_list)
             medicamentsList.adapter = findMedicamentListAdapter
             medicamentsList.layoutManager = LinearLayoutManager(
                 context, RecyclerView.VERTICAL, false
             )
+            searchView = findViewById(R.id.search_view)
+            noMedicamentsGroup = findViewById(R.id.no_medicaments_group)
         }
         lenguage = Locale.getDefault().language
 
@@ -122,7 +118,7 @@ class FindMedicamentFragment : Fragment() {
     }
 
     private fun searchMed(text: String, list: List<MedModel>) {
-        val leakedData = mutableListOf<MedModel>()
+
         list?.let { list ->
             val marchingItems = if (lenguage == "en") {
                 list.filter { medModel ->
@@ -135,13 +131,17 @@ class FindMedicamentFragment : Fragment() {
                             medModel.brand.contains(text, ignoreCase = true)
                 }
             }
+            leakedData.clear()
             leakedData.addAll(marchingItems)
             findMedicamentListAdapter.setData(leakedData)
         }
     }
 
 
-
+    private fun displayDatailMedicament(medModel: MedModel) {
+        println("Medicina: $medModel")
+//        TODO: pasar la info a otro fragmento
+    }
 
 
 }
