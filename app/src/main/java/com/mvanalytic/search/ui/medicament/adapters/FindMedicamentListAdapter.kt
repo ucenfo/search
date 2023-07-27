@@ -69,7 +69,6 @@ class FindMedicamentViewHolder(view: View): RecyclerView.ViewHolder(view) {
                 .with(this)
                 .load(medModel.photoSmall)
                 .centerCrop()
-                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(R.drawable.ic_image)
                 .into(image)

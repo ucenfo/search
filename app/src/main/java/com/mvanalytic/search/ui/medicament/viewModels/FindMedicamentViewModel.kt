@@ -22,6 +22,7 @@ class FindMedicamentViewModel(
     fun onViewReady(){
         val list = getMedUseCase.execute()
         _medListLiveData.value = list
+        println("lista: $list")
     }
 }
 
