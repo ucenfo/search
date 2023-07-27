@@ -16,9 +16,17 @@ Arquitectura reactiva donde se introdujo el concepto de ViewModel. Este componen
 
 ## Proyeto
 
-Carga de datos de una base de datos, usando la siguiente estructura
+1. Carga de datos de una base de datos, usando la siguiente estructura
 
 ![Estructura](img/estructura.png)
+
+2. Muestra un ProgressBar mientras se cargan los datos
+
+Para esto se agregó un delay para simular el retraso en la carga de datos
+
+3. Muestra un mensaje en caso de encontrar resultados en la búsqueda
+
+4. Incluye una búsqueda pormedio de la cámara (no implementada, por default carga un texto)
 
 ## Objetivo
 
@@ -90,4 +98,166 @@ Glide es una biblioteca cargar imágenes, ver [About Glide](https://bumptech.git
 ```
 
 
-# search
+# Imagen y texto de no encontró resultado en la búsqueda
+
+**XML**
+
+```
+        <ImageView
+            android:id="@+id/iv_add_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/no_medicine"
+            android:src="@drawable/ic_add_note"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view" />
+
+        <TextView
+            android:id="@+id/tv_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_search_result"
+            android:textSize="@dimen/no_find_medicament"
+            app:layout_constraintEnd_toEndOf="@id/medicaments_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_add_icon" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/no_medicaments_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="iv_add_icon,tv_add_note"
+            tools:visibility="gone" />
+```
+
+**Strig**
+
+```
+    <string name="no_search_result">no search results</string>
+    <string name="no_search_result">no search results</string>
+```
+
+**Fragmento.kt**
+
+```
+    private lateinit var noMedGroup: Group
+
+    private fun initViews(view: View){
+        with(view){
+            noMedGroup = findViewById(R.id.no_medicaments_group)
+            noMedGroup.visibility = View.GONE
+        }
+    }
+
+    private fun setSearchMessage(list: List<MedModel>) {
+        if (list.isEmpty()){
+            noMedGroup.visibility = View.VISIBLE
+            medsList.visibility = View.GONE
+        } else {
+            noMedGroup.visibility = View.GONE
+            medsList.visibility = View.VISIBLE
+        }
+    }
+```
+
+# ProgressBar
+
+**XML**
+
+```
+        <ProgressBar
+            android:id="@+id/pbLarge"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view"/>
+
+        <TextView
+            android:id="@+id/tv_message_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cargando..."
+            android:textSize="@dimen/no_find_medicament"
+            app:layout_constraintEnd_toEndOf="@id/medicaments_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pbLarge" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/progress_bar_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="pbLarge,tv_message_progress"
+            tools:visibility="gone" />
+```
+
+
+**Fragmento.kt**
+
+```
+    private lateinit var pbLarge: ProgressBar
+    
+    private lateinit var progressBarGroup: Group
+
+    private fun initViews(view: View){
+        with(view){
+            pbLarge = findViewById(R.id.pbLarge)
+            initProgressBar()
+        }
+    }
+
+    private fun setSearchMessage(list: List<MedModel>) {
+        if (list.isEmpty()){
+            noMedGroup.visibility = View.VISIBLE
+            medsList.visibility = View.GONE
+        } else {
+            noMedGroup.visibility = View.GONE
+            medsList.visibility = View.VISIBLE
+        }
+    }
+
+    private fun initProgressBar(){
+        pbLarge.indeterminateDrawable.setColorFilter(ContextCompat.getColor(requireContext(),
+        R.color.blue), PorterDuff.Mode.SRC_IN)
+
+    }
+
+        private fun observe(){
+        findMedicamentViewModel.medListLiveData.observe(viewLifecycleOwner) {
+            list ->
+            initialList.clear()
+            setProgressBar(initialList)
+            initialList.addAll(list)
+            // muestra
+            showProgressBarWithDelay(initialList)
+            // continua
+        }
+    }
+
+        private fun showProgressBarWithDelay(list: List<MedModel>) {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
+                delay(3000)
+                findMedicamentListAdapter.setData(initialList)
+                setProgressBar(initialList)
+            }
+        }
+    }
+
+        private fun setProgressBar(list: List<MedModel>) {
+        if (list.isEmpty()){
+            progressBarGroup.visibility = View.VISIBLE
+            medsList.visibility = View.GONE
+        } else {
+            progressBarGroup.visibility = View.GONE
+            medsList.visibility = View.VISIBLE
+        }
+    }
+
+```
+
+![ProgressBar](img/progressBar.png)

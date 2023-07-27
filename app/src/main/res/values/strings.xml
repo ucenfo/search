@@ -3,6 +3,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_medicine">Hello blank fragment</string>
     <dimen name="no_find_medicament">20sp</dimen>
-    <string name="no_hay_medicina">You have no tasks</string>
+    <string name="no_search_result">no search results</string>
     <string name="descript_fragmente_find_med">medication view description</string>
 </resources>

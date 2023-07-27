@@ -1,13 +1,16 @@
 package com.mvanalytic.search.ui.medicament.views
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.Group
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +20,14 @@ import com.mvanalytic.search.data.repositories.MedsRepositoryImpl
 import com.mvanalytic.search.domian.models.MedModel
 import com.mvanalytic.search.domian.usecases.GetMedUseCase
 import com.mvanalytic.search.ui.main.viewmodels.MainViewModel
-import com.mvanalytic.search.ui.main.viewmodels.NavigationScreen
 import com.mvanalytic.search.ui.medicament.adapters.FindMedicamentListAdapter
 import com.mvanalytic.search.ui.medicament.viewModels.FindMedicamentViewModel
 import com.mvanalytic.search.ui.medicament.viewModels.factories.FindMedicamentViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 
@@ -28,8 +35,10 @@ class FindMedicamentFragment : Fragment() {
 
     private lateinit var searchView: SearchView
     private lateinit var camara: ImageView
-    private lateinit var medicamentsList: RecyclerView
-    private lateinit var noMedicamentsGroup: Group
+    private lateinit var medsList: RecyclerView
+    private lateinit var pbLarge: ProgressBar
+    private lateinit var noMedGroup: Group
+    private lateinit var progressBarGroup: Group
     private lateinit var lenguage: String
     private val initialList = mutableListOf<MedModel>()
     private val leakedData = mutableListOf<MedModel>()
@@ -77,17 +86,28 @@ class FindMedicamentFragment : Fragment() {
 
     private fun initViews(view: View){
         with(view){
-            medicamentsList = findViewById(R.id.medicaments_list)
-            medicamentsList.adapter = findMedicamentListAdapter
-            medicamentsList.layoutManager = LinearLayoutManager(
+            medsList = findViewById(R.id.medicaments_list)
+            medsList.adapter = findMedicamentListAdapter
+            medsList.layoutManager = LinearLayoutManager(
                 context, RecyclerView.VERTICAL, false
             )
             searchView = findViewById(R.id.search_view)
-            noMedicamentsGroup = findViewById(R.id.no_medicaments_group)
+            noMedGroup = findViewById(R.id.no_medicaments_group)
+            noMedGroup.visibility = View.GONE
+            progressBarGroup = findViewById(R.id.progress_bar_group)
+            progressBarGroup.visibility = View.VISIBLE
             camara = findViewById(R.id.camara)
             camara.setOnClickListener { searchUsingCamara() }
+            pbLarge = findViewById(R.id.pbLarge)
+            initProgressBar()
         }
         lenguage = Locale.getDefault().language
+
+    }
+
+    private fun initProgressBar(){
+        pbLarge.indeterminateDrawable.setColorFilter(ContextCompat.getColor(requireContext(),
+        R.color.blue), PorterDuff.Mode.SRC_IN)
 
     }
 
@@ -96,19 +116,46 @@ class FindMedicamentFragment : Fragment() {
         findMedicamentViewModel.medListLiveData.observe(viewLifecycleOwner) {
             list ->
             initialList.clear()
+            setProgressBar(initialList)
             initialList.addAll(list)
-            findMedicamentListAdapter.setData(initialList)
-            setSearchMessage(initialList)
+            // muestra
+            showProgressBarWithDelay(initialList)
+            // continua
+//            findMedicamentListAdapter.setData(initialList)
+//            setProgressBar(initialList)
+
+
+
+        }
+    }
+
+    private fun showProgressBarWithDelay(list: List<MedModel>) {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
+                delay(3000)
+                findMedicamentListAdapter.setData(initialList)
+                setProgressBar(initialList)
+            }
         }
     }
 
     private fun setSearchMessage(list: List<MedModel>) {
         if (list.isEmpty()){
-            noMedicamentsGroup.visibility = View.VISIBLE
-            medicamentsList.visibility = View.GONE
+            noMedGroup.visibility = View.VISIBLE
+            medsList.visibility = View.GONE
         } else {
-            noMedicamentsGroup.visibility = View.GONE
-            medicamentsList.visibility = View.VISIBLE
+            noMedGroup.visibility = View.GONE
+            medsList.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setProgressBar(list: List<MedModel>) {
+        if (list.isEmpty()){
+            progressBarGroup.visibility = View.VISIBLE
+            medsList.visibility = View.GONE
+        } else {
+            progressBarGroup.visibility = View.GONE
+            medsList.visibility = View.VISIBLE
         }
     }
 
@@ -146,8 +193,10 @@ class FindMedicamentFragment : Fragment() {
             leakedData.clear()
             leakedData.addAll(marchingItems)
             findMedicamentListAdapter.setData(leakedData)
+            setSearchMessage(leakedData)
         }
     }
+
 
     private fun searchUsingCamara(){
 //        TODO: implementar código de cámara, para obtener el texto y pasarlo a la siguiente función

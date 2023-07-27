@@ -7,5 +7,6 @@
 
     <color name="md_theme_light_secondaryContainer">#a4f1b0</color>
     <color name="md_theme_light_tertiaryContainer">#C6E7FF</color>
-    <color name="md_theme_light_onTertiaryContainer">#001E2D</color>
+    <color name="md_theme_light_onTertiaryContainer">#E91E63</color>
+
 </resources>

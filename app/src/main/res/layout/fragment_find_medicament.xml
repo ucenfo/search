@@ -41,7 +41,6 @@
             app:layout_constraintStart_toStartOf="@+id/container_search_photo"
             app:layout_constraintTop_toTopOf="@+id/guideline_toolbar" />
 
-
         <ImageView
             android:id="@+id/camara"
             android:layout_width="50dp"
@@ -76,7 +75,7 @@
             android:id="@+id/tv_add_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_hay_medicina"
+            android:text="@string/no_search_result"
             android:textSize="@dimen/no_find_medicament"
             app:layout_constraintEnd_toEndOf="@id/medicaments_list"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +88,33 @@
             app:constraint_referenced_ids="iv_add_icon,tv_add_note"
             tools:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/pbLarge"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view"/>
+
+        <TextView
+            android:id="@+id/tv_message_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cargando..."
+            android:textSize="@dimen/no_find_medicament"
+            app:layout_constraintEnd_toEndOf="@id/medicaments_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pbLarge" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/progress_bar_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="pbLarge,tv_message_progress"
+            tools:visibility="gone" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
