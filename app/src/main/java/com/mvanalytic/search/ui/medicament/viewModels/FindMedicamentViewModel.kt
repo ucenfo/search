@@ -19,10 +19,19 @@ class FindMedicamentViewModel(
     val medListLiveData: LiveData<List<MedModel>>
         get() = _medListLiveData
 
+    // LiveData del medicamento seleccionado para consultar información
+    private val _medSearchSelectionLiveData = MutableLiveData<MedModel>()
+    val medSearchSelectionLiveData: LiveData<MedModel>
+        get() = _medSearchSelectionLiveData
+
     fun onViewReady(){
         val list = getMedUseCase.execute()
         _medListLiveData.value = list
-        println("lista: $list")
+        println("lista: ${list.size}")
+    }
+
+    fun setClickedMed(medModel: MedModel) {
+        _medSearchSelectionLiveData.value = medModel
     }
 }
 

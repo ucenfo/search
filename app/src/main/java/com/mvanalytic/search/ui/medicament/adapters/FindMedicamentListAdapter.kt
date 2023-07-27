@@ -46,6 +46,7 @@ class FindMedicamentViewHolder(view: View): RecyclerView.ViewHolder(view) {
              displayDetailOfMedication: (medModel: MedModel) -> Unit
     ){
         val language = Locale.getDefault().language
+        println("Elemento $medModel")
         with(itemView) {
             val containerMedicament = findViewById<View>(R.id.medicament_container)
             containerMedicament.setOnClickListener {

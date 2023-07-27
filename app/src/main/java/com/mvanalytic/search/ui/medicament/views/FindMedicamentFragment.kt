@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.Group
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.mvanalytic.search.data.repositories.MedsRepositoryImpl
 import com.mvanalytic.search.domian.models.MedModel
 import com.mvanalytic.search.domian.usecases.GetMedUseCase
 import com.mvanalytic.search.ui.main.viewmodels.MainViewModel
+import com.mvanalytic.search.ui.main.viewmodels.NavigationScreen
 import com.mvanalytic.search.ui.medicament.adapters.FindMedicamentListAdapter
 import com.mvanalytic.search.ui.medicament.viewModels.FindMedicamentViewModel
 import com.mvanalytic.search.ui.medicament.viewModels.factories.FindMedicamentViewModelFactory
@@ -25,9 +27,11 @@ import java.util.Locale
 class FindMedicamentFragment : Fragment() {
 
     private lateinit var searchView: SearchView
+    private lateinit var camara: ImageView
     private lateinit var medicamentsList: RecyclerView
     private lateinit var noMedicamentsGroup: Group
     private lateinit var lenguage: String
+    private val initialList = mutableListOf<MedModel>()
     private val leakedData = mutableListOf<MedModel>()
 
     private lateinit var mainViewModel: MainViewModel
@@ -62,6 +66,7 @@ class FindMedicamentFragment : Fragment() {
         findMedicamentViewModel = ViewModelProvider(this, findMedicamentViewModelFactory)[FindMedicamentViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         observe()
+        queryText()
         return view
     }
 
@@ -79,6 +84,8 @@ class FindMedicamentFragment : Fragment() {
             )
             searchView = findViewById(R.id.search_view)
             noMedicamentsGroup = findViewById(R.id.no_medicaments_group)
+            camara = findViewById(R.id.camara)
+            camara.setOnClickListener { searchUsingCamara() }
         }
         lenguage = Locale.getDefault().language
 
@@ -88,29 +95,34 @@ class FindMedicamentFragment : Fragment() {
     private fun observe(){
         findMedicamentViewModel.medListLiveData.observe(viewLifecycleOwner) {
             list ->
-            queryText(list)
-            if (list.isEmpty()){
-                noMedicamentsGroup.visibility = View.VISIBLE
-                medicamentsList.visibility = View.GONE
-            } else {
-                noMedicamentsGroup.visibility = View.GONE
-                medicamentsList.visibility = View.VISIBLE
-            }
+            initialList.clear()
+            initialList.addAll(list)
+            findMedicamentListAdapter.setData(initialList)
+            setSearchMessage(initialList)
         }
     }
 
-    private fun queryText(list: List<MedModel>){
-        findMedicamentListAdapter.setData(list)
+    private fun setSearchMessage(list: List<MedModel>) {
+        if (list.isEmpty()){
+            noMedicamentsGroup.visibility = View.VISIBLE
+            medicamentsList.visibility = View.GONE
+        } else {
+            noMedicamentsGroup.visibility = View.GONE
+            medicamentsList.visibility = View.VISIBLE
+        }
+    }
+
+    private fun queryText(){
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    searchMed(query.toString(), list)
+                    searchMed(query.toString(), initialList)
                 }
                 return false
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
-                    searchMed(newText.toString(), list)
+                    searchMed(newText.toString(), initialList)
                 }
                 return false
             }
@@ -137,8 +149,15 @@ class FindMedicamentFragment : Fragment() {
         }
     }
 
+    private fun searchUsingCamara(){
+//        TODO: implementar código de cámara, para obtener el texto y pasarlo a la siguiente función
+        searchMed("asp", initialList)
+    }
+
 
     private fun displayDatailMedicament(medModel: MedModel) {
+        findMedicamentViewModel.setClickedMed(medModel)
+//        mainViewModel.navigateTo(NavigationScreen.ShowMed(medModel))
         println("Medicina: $medModel")
 //        TODO: pasar la info a otro fragmento
     }
